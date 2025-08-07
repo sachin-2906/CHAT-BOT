@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ONE KEF Assistant</title>
+  <link rel="icon" type="image/png" href="/static/kotak-logo.png">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #f9f9ff, #eef2f7);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #chat-widget {
+      width: 360px;
+      height: 560px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 2px solid #e4002b;
+      position: relative;
+      z-index: 1;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #e4002b, #002f6c);
+      color: white;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-header img {
+      width: 110px;
+      height: auto;
+      object-fit: contain;
+      background-color: white;
+      border-radius: 4px;
+    }
+
+    .chat-header .name {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .tagline {
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      background-color: #f9f9f9;
+      padding: 4px 10px;
+    }
+
+    #chatbox {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #fafafa;
+    }
+
+    .bubble {
+      max-width: 80%;
+      padding: 10px 14px;
+      margin: 6px 0;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.4;
+      display: inline-block;
+    }
+
+    .bot {
+      background-color: #f0f0f0;
+      color: #333;
+      border-bottom-left-radius: 0;
+      float: left;
+      clear: both;
+    }
+
+    .user {
+      background-color: #e4002b;
+      color: white;
+      border-bottom-right-radius: 0;
+      float: right;
+      clear: both;
+    }
+
+    #inputArea {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-top: 1px solid #e5e5e5;
+      background: white;
+    }
+
+    #userInput {
+      flex: 1;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      background: #f0f0f0;
+      margin-right: 10px;
+    }
+
+    #userInput:focus {
+      outline: none;
+    }
+
+    #sendBtn {
+      background-color: #002f6c;
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-widget">
+    <div class="chat-header">
+      <img src="/static/kotak-logo.png" alt="Kotak Logo">
+      <div class="name">ONE KEF Assistant</div>
+    </div>
+    <div class="tagline">Powered by Kotak Education Foundation</div>
+    <div id="chatbox">
+      <div class="bubble bot">
+        Welcome! 👋<br>
+        I'm ONE KEF Assistant.<br><br>
+        Please choose one of the following options:<br>
+        1️⃣ About KEF<br>
+        2️⃣ Moodle FAQs<br>
+        3️⃣ Feedback<br><br>
+        💡 Type <b>Instant Help</b> for urgent support.
+      </div>
+    </div>
+    <div id="inputArea">
+      <input type="text" id="userInput" placeholder="Enter your message..." autocomplete="off" />
+      <button id="sendBtn" onclick="sendMessage()">&#9658;</button>
+    </div>
+  </div>
+
+  <audio id="messageSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("userInput");
+    const sound = document.getElementById("messageSound");
+
+    function scrollToBottom() {
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function playSound() {
+      sound.currentTime = 0;
+      sound.play();
+    }
+
+    function sendMessage() {
+      const userText = input.value.trim();
+      if (!userText) return;
+
+      const userBubble = document.createElement("div");
+      userBubble.className = "bubble user";
+      userBubble.textContent = userText;
+      chatbox.appendChild(userBubble);
+      input.value = "";
+      scrollToBottom();
+      playSound();
+
+      const typingBubble = document.createElement("div");
+      typingBubble.className = "bubble bot";
+      typingBubble.textContent = "Typing...";
+      chatbox.appendChild(typingBubble);
+      scrollToBottom();
+
+      fetch("/get?msg=" + encodeURIComponent(userText))
+        .then(res => res.text())
+        .then(data => {
+          chatbox.removeChild(typingBubble);
+          const botBubble = document.createElement("div");
+          botBubble.className = "bubble bot";
+          botBubble.textContent = data;
+          chatbox.appendChild(botBubble);
+          scrollToBottom();
+          playSound();
+        });
+    }
+
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+</body>
+</html>
