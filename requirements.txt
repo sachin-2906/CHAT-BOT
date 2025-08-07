@@ -1,4 +1,2 @@
 Flask
 openpyxl
-fuzzywuzzy
-python-Levenshtein
