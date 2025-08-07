@@ -1,29 +1,17 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import json
 import os
 import openpyxl
 import datetime
-from fuzzywuzzy import fuzz
 
 app = Flask(__name__)
 app.debug = True
 
-with open("qa_data_kef_final_with_slang.json", "r", encoding="utf-8") as f:
-    qa_data = json.load(f)
+# Load JSON file with categorized FAQs
+with open("kef_faq_chatbot_final.json", "r", encoding="utf-8") as f:
+    faq_data = json.load(f)
 
-def match_question_fuzzy(user_question):
-    user_question = user_question.strip().lower()
-    best_score = 0
-    best_answer = qa_data.get("default", "Sorry, I couldn’t understand that.")
-
-    for question, answer in qa_data.items():
-        score = fuzz.partial_ratio(user_question, question.lower())
-        if score > best_score and score >= 60:
-            best_score = score
-            best_answer = answer
-
-    return best_answer
-
+# Excel logging function
 def log_to_excel(user_msg, bot_response):
     file_name = "chat_log.xlsx"
     if not os.path.exists(file_name):
@@ -39,22 +27,32 @@ def log_to_excel(user_msg, bot_response):
     sheet.append([timestamp, user_msg, bot_response])
     workbook.save(file_name)
 
+# Home route
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", categories=list(faq_data.keys()))
 
-@app.route("/get")
-def get_bot_response():
-    user_msg = request.args.get("msg")
-    bot_response = match_question_fuzzy(user_msg)
-    log_to_excel(user_msg, bot_response)
-    return bot_response
+# Get questions for a selected category
+@app.route("/get_questions", methods=["POST"])
+def get_questions():
+    category = request.json.get("category")
+    questions = list(faq_data.get(category, {}).keys())
+    return jsonify(questions)
 
+# Get answer for a selected question
+@app.route("/get_answer", methods=["POST"])
+def get_answer():
+    category = request.json.get("category")
+    question = request.json.get("question")
+    answer = faq_data.get(category, {}).get(question, "Sorry, no answer found.")
+    
+    # Add "More Help" option at the end
+    answer += "<br><br><b>Need more help?</b> <a href='https://kotakeducation.org/contact-us/' target='_blank'>Contact KEF Support</a>"
+
+    log_to_excel(f"{category} → {question}", answer)
+    return jsonify(answer)
+
+# Run the app
 PORT = int(os.environ.get("PORT", 10000))
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
-
-
-
-
-
