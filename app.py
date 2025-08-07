@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.debug = True
 
 # Load JSON file with categorized FAQs
-with open("kef_faq_chatbot_final.json", "r", encoding="utf-8") as f:
+with open("qa_data_kef_final_with_slang.json", "r", encoding="utf-8") as f:
     faq_data = json.load(f)
 
 # Excel logging function
@@ -56,3 +56,4 @@ def get_answer():
 PORT = int(os.environ.get("PORT", 10000))
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+
