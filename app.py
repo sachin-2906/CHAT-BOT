@@ -41,7 +41,7 @@ def log_to_excel(user_msg, bot_response):
 
 @app.route("/")
 def home():
-    return render_template("HTML")
+    return render_template("HTML.html")
 
 @app.route("/get")
 def get_bot_response():
@@ -53,4 +53,5 @@ def get_bot_response():
 PORT = int(os.environ.get("PORT", 10000))
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=PORT)
+
 
