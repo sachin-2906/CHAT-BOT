@@ -1,64 +1,57 @@
 {
-  "Welcome": {
-    "message": "Please choose a category below to proceed:",
-    "categories": [
-      "🎥 Video Issues",
-      "📜 Certificate Issues",
-      "📚 Course Assignment",
-      "📈 Progress/Completion",
-      "🔐 Account/Login Issues",
-      "📝 Other Requests"
-    ]
-  },
-  "🎥 Video Issues": {
-    "questions": {
-      "Video not loading or playing": "The video is working fine. Please share a screenshot if it still doesn't play.",
-      "File not found": "The video has been reuploaded. Please try again.",
-      "Intro video not playing": "The videos have been reuploaded. Please ask SLs to complete the course.",
-      "Some videos not loading at school": "Some videos are heavy and may take time depending on internet speed.",
-      "Teacher facing 'file not found' issue": "The video has been reuploaded and should now be accessible.",
-      "More Help": "📞 Please call KEF Support at 8271154294 or email support@kotakedu.org for urgent assistance."
-    }
-  },
-  "📜 Certificate Issues": {
-    "questions": {
-      "Certificate not shown": "Certificates have been issued.",
-      "Course completed but certificate not visible": "Certificates are issued.",
-      "Name correction - Mohammad Naeem Mohammad Ibrahim Ansari": "Certificate has been regenerated.",
-      "Name correction - Rubina Abdul Saeed": "Certificate has been regenerated.",
-      "More Help": "📞 Please call KEF Support at 8271154294 or email support@kotakedu.org for urgent assistance."
-    }
-  },
-  "📚 Course Assignment": {
-    "questions": {
-      "Assign Self Leadership course": "The course has been assigned, resolved.",
-      "Assign FLN course": "The course has been assigned.",
-      "More Help": "📞 Please call KEF Support at 8271154294 or email support@kotakedu.org for urgent assistance."
-    }
-  },
-  "📈 Progress/Completion": {
-    "questions": {
-      "Course completed but shows 0%": "Course completion conditions are not met.",
-      "Activities done but not showing complete": "Course settings have been updated. Progress should now record correctly.",
-      "Leadership course shows 0% on phone but 52% on mail": "Teacher is expected to watch 70% of the video. Only 52% is watched.",
-      "Lesson 1 & 19 repeated but still incomplete": "The issue has been resolved. Escalate if it persists.",
-      "Completed all activities but course incomplete": "Query resolved. Please ignore the course for now.",
-      "More Help": "📞 Please call KEF Support at 8271154294 or email support@kotakedu.org for urgent assistance."
-    }
-  },
-  "🔐 Account/Login Issues": {
-    "questions": {
-      "Invalid login": "Teacher was locked out but has recovered access.",
-      "User ID not working": "No such ID exists in OneKEF. Please check the ID.",
-      "Request name change for login": "The name has been changed. Login credentials remain the same.",
-      "More Help": "📞 Please call KEF Support at 8271154294 or email support@kotakedu.org for urgent assistance."
-    }
-  },
-  "📝 Other Requests": {
-    "questions": {
-      "H5P activity not loading": "It may take time to load depending on internet. Try desktop view.",
-      "Any other issue": "🙏 Sorry we couldn't find a matching solution. Our team is ready to support you.",
-      "More Help": "📞 Please call KEF Support at 8271154294 or email support@kotakedu.org for urgent assistance."
-    }
-  }
+  "Welcome to ONE KEF Assistant!": "Please choose one of the options below to get started:\n\n1. About KEF\n2. Moodle FAQs\n3. Feedback to improve the data\n\n💡 For urgent support, type 'Instant Help'.",
+  "1": "Kotak Education Foundation (KEF) was established in 2007 to address urban poverty through education and livelihood programs.\nOur initiatives include:\n- Scholarships and financial support for underprivileged students\n- Teacher training and capacity building\n- School transformation projects\n- Career guidance and employability programs\n- Digital learning platforms such as Moodle\nVisit us at: https://www.kotakeducationfoundation.org",
+  "2": "🔍 Before accessing Moodle FAQs, please answer the following:\n\n1. What is your Moodle Username?\n2. What is your Project Name?\n\n💡 If you need help right now, type 'Instant Help' or call 📞 8271154294.\n\n🙏 We're sorry you're experiencing trouble. Our team will support you as quickly as possible.\n\nType a Moodle FAQ topic to continue:\n- Video Issues\n- Certificate Issues\n- Course Assignment\n- Progress/Completion Issues\n- Account Issues\n- Other Requests",
+  "3": "Thank you for your willingness to help us improve!\nYou can share feedback on Moodle issues by calling our helpline at 📞 8271154294 or emailing support@kotakedu.org",
+  "Instant Help": "📞 Please call KEF Support at 8271154294 for immediate assistance.\nWe're truly sorry for the inconvenience and appreciate your patience.",
+  "Video Issues": "Please describe your video-related issue (e.g., 'Video not loading', 'File not found').",
+  "Certificate Issues": "Please describe your certificate-related issue (e.g., 'Certificate not shown', 'Name correction').",
+  "Course Assignment": "Please describe what course needs to be assigned (e.g., 'Assign FLN course').",
+  "Progress/Completion Issues": "Please describe the progress-related issue (e.g., 'Course completed but shows 0').",
+  "Account Issues": "Please describe the login/account issue (e.g., 'Invalid login', 'User ID not working').",
+  "Other Requests": "Please describe your issue (e.g., 'Name correction', 'H5P not loading').",
+  "Activity not shown": "The videos have been reuploaded. Please ask SLs to complete the course.",
+  "Course video not play": "The video has been reuploaded. Please check again.",
+  "Video not playing or not loading": "The video is working fine. Please share a screenshot if the issue still exists.",
+  "Staring video not play": "The videos have been reuploaded. Please ask SLs to complete the course.",
+  "File not found": "The video has been reuploaded and is now working.",
+  "Video not plan": "Please check your internet connection. It may be due to low connectivity.",
+  "Video plan issue": "The video has been reuploaded and verified. All videos are working fine now.",
+  "Teacher facing technical problem with file not found": "The video has been reuploaded and should now be accessible.",
+  "Intro video not playing for multiple teachers": "The video has been reuploaded. Teachers should now be able to watch it.",
+  "Some videos are not loading at Dhanore school": "Some videos are heavy and may take time to load depending on internet speed.",
+  "Certificate not shown": "Certificates have been issued.",
+  "Course completed but certificate not shown": "Certificates are issued.",
+  "Not available content unless": "Certificate has been regenerated.",
+  "Name correction on certificate - Mohammad Naeem Mohammad Ibrahim Ansari": "Certificate has been regenerated.",
+  "Name correction on certificate - Rubina Abdul Saeed": "Certificate has been regenerated.",
+  "Could you please assign her Self Leadership course?": "The course has been assigned, resolved.",
+  "Kindly assign FLN course. Teacher has attended FLN training": "The course has been assigned.",
+  "Course completed but shown 0": "Course completion conditions are not met.",
+  "Couse was not moving forward": "They have completed the course hence the challenge is no longer valid.",
+  "Done activities multiple times but not showing done": "Course settings have been updated. Progress should now record correctly.",
+  "Leadership course showing 0% on phone but 52% on mail": "The teacher is expected to watch 70% of the video. Only 52% is watched so the course shows 0%.",
+  "Lesson 1 & 19 shown multiple times but still not marked complete": "The issue has been resolved. Please escalate if it persists.",
+  "Not able to complete course even after doing all activities": "Query resolved. Please ignore the course for now.",
+  "It is showing invalid login": "The teacher was locked out but has recovered access with support.",
+  "User ID is not working": "No such ID exists in OneKEF. Please check the ID.",
+  "Please change the name of the teacher to Mohammad Naeem Mirza Hifazat Baig": "The name has been changed. Login credentials remain the same.",
+  "H5P activity not loading": "This is an H5P activity. It may take time due to internet. Try using desktop view.",
+  "default": "🙏 We're sorry we couldn't find a matching solution.\nPlease don't worry—we’re here to help you. For urgent support, call 📞 KEF Support at 8271154294.",
+  "thanks": "You're welcome! 😊 Let me know if there's anything else I can help with.",
+  "thank you": "You're most welcome! 🙏",
+  "thank you so much": "Anytime! Happy to help. 💙",
+  "ok": "👍 Got it!",
+  "okay": "👍 Alright!",
+  "cool": "😎 Great!",
+  "nice": "Glad you liked it! 😊",
+  "great": "Awesome! Let me know if you need anything else.",
+  "good": "Happy to hear that!",
+  "hi": "Hello! 👋 I'm ONE KEF Assistant. How can I support you today?",
+  "hello": "Hi there! 😊 What would you like to know?",
+  "hey": "Hey! 👋 Feel free to ask anything.",
+  "bye": "Goodbye! Take care. 👋",
+  "see you": "See you soon! 😊",
+  "no": "Alright, let me know if you need help later.",
+  "not now": "Sure, reach out anytime when you're ready."
 }
