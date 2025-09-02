@@ -11,22 +11,14 @@ app = Flask(__name__)
 # Set base directory for files
 # ----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# JSON file is directly in project folder (not inside /data)
 JSON_PATH = os.path.join(BASE_DIR, "qa_data_kef_final_with_slang.json")
-
-# Excel log will be created in project folder
 LOG_PATH = os.path.join(BASE_DIR, "chat_log.xlsx")
 
 # ----------------------------
 # Load the nested FAQ JSON with categories
 # ----------------------------
-try:
-    with open(JSON_PATH, "r", encoding="utf-8") as f:
-        qa_data = json.load(f)
-except FileNotFoundError:
-    qa_data = {}
-    print(f"⚠️ JSON file not found at: {JSON_PATH}")
+with open(JSON_PATH, "r", encoding="utf-8") as f:
+    qa_data = json.load(f)
 
 # ----------------------------
 # Function: Fuzzy Match Question
@@ -48,18 +40,18 @@ def match_question_fuzzy(user_question):
 # ----------------------------
 # Function: Log conversation to Excel
 # ----------------------------
-def log_to_excel(user_msg, bot_response, teacher_input=""):
+def log_to_excel(user_msg, bot_response):
     if not os.path.exists(LOG_PATH):
         workbook = openpyxl.Workbook()
         sheet = workbook.active
         sheet.title = "Chat Log"
-        sheet.append(["Timestamp", "User Message", "Bot Response", "Teacher Input"])
+        sheet.append(["Timestamp", "User Message", "Bot Response"])
         workbook.save(LOG_PATH)
 
     workbook = openpyxl.load_workbook(LOG_PATH)
     sheet = workbook.active
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sheet.append([timestamp, user_msg, bot_response, teacher_input])
+    sheet.append([timestamp, user_msg, bot_response])
     workbook.save(LOG_PATH)
 
 # ----------------------------
@@ -71,18 +63,11 @@ def home():
 
 @app.route("/get")
 def get_bot_response():
-    user_msg = request.args.get("msg", "").strip()
-    teacher_input = request.args.get("teacher_input", "").strip()
-
-    if not user_msg and not teacher_input:
-        return "Please select a question or enter teacher input."
-
-    if user_msg:
-        bot_response = match_question_fuzzy(user_msg)
-    else:
-        bot_response = "Your input has been noted. KEF will review it."
-
-    log_to_excel(user_msg, bot_response, teacher_input)
+    user_msg = request.args.get("msg")
+    if not user_msg:
+        return "Please ask a question."
+    bot_response = match_question_fuzzy(user_msg)
+    log_to_excel(user_msg, bot_response)
     return bot_response
 
 # ----------------------------
@@ -90,6 +75,4 @@ def get_bot_response():
 # ----------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
-    print(f"✅ Looking for JSON at: {JSON_PATH}")
     app.run(host="0.0.0.0", port=port)
-
