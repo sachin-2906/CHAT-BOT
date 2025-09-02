@@ -12,8 +12,8 @@ app = Flask(__name__)
 # ----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Keep JSON inside a "data" folder
-JSON_PATH = os.path.join(BASE_DIR, "data", "qa_data_kef_final_with_slang.json")
+# JSON file is directly in project folder (not inside /data)
+JSON_PATH = os.path.join(BASE_DIR, "qa_data_kef_final_with_slang.json")
 
 # Excel log will be created in project folder
 LOG_PATH = os.path.join(BASE_DIR, "chat_log.xlsx")
