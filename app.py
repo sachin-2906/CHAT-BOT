@@ -11,7 +11,11 @@ app = Flask(__name__)
 # Set base directory for files
 # ----------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-JSON_PATH = os.path.join(BASE_DIR, "qa_data_kef_final_with_slang.json")
+
+# Keep JSON inside a "data" folder
+JSON_PATH = os.path.join(BASE_DIR, "data", "qa_data_kef_final_with_slang.json")
+
+# Excel log will be created in project folder
 LOG_PATH = os.path.join(BASE_DIR, "chat_log.xlsx")
 
 # ----------------------------
@@ -22,7 +26,7 @@ try:
         qa_data = json.load(f)
 except FileNotFoundError:
     qa_data = {}
-    print(f"⚠️ JSON file not found at {JSON_PATH}")
+    print(f"⚠️ JSON file not found at: {JSON_PATH}")
 
 # ----------------------------
 # Function: Fuzzy Match Question
@@ -86,4 +90,5 @@ def get_bot_response():
 # ----------------------------
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
+    print(f"✅ Looking for JSON at: {JSON_PATH}")
     app.run(host="0.0.0.0", port=port)
