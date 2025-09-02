@@ -44,18 +44,18 @@ def match_question_fuzzy(user_question):
 # ----------------------------
 # Function: Log conversation to Excel
 # ----------------------------
-def log_to_excel(user_msg, bot_response):
+def log_to_excel(user_msg, bot_response, teacher_input=""):
     if not os.path.exists(LOG_PATH):
         workbook = openpyxl.Workbook()
         sheet = workbook.active
         sheet.title = "Chat Log"
-        sheet.append(["Timestamp", "User Message", "Bot Response"])
+        sheet.append(["Timestamp", "User Message", "Bot Response", "Teacher Input"])
         workbook.save(LOG_PATH)
 
     workbook = openpyxl.load_workbook(LOG_PATH)
     sheet = workbook.active
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    sheet.append([timestamp, user_msg, bot_response])
+    sheet.append([timestamp, user_msg, bot_response, teacher_input])
     workbook.save(LOG_PATH)
 
 # ----------------------------
@@ -67,11 +67,18 @@ def home():
 
 @app.route("/get")
 def get_bot_response():
-    user_msg = request.args.get("msg")
-    if not user_msg:
-        return "Please ask a question."
-    bot_response = match_question_fuzzy(user_msg)
-    log_to_excel(user_msg, bot_response)
+    user_msg = request.args.get("msg", "").strip()
+    teacher_input = request.args.get("teacher_input", "").strip()
+
+    if not user_msg and not teacher_input:
+        return "Please select a question or enter teacher input."
+
+    if user_msg:
+        bot_response = match_question_fuzzy(user_msg)
+    else:
+        bot_response = "Your input has been noted. KEF will review it."
+
+    log_to_excel(user_msg, bot_response, teacher_input)
     return bot_response
 
 # ----------------------------
